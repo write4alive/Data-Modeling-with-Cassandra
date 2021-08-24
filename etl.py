@@ -100,7 +100,7 @@ def cassandra_operations():
         print("Create keyspace fail !")
 
 
-# Connect KEYSPACE
+# Connectting KEYSPACE
     try:
         session.set_keyspace('project2')
         print("Connection established to keyspace")
@@ -109,7 +109,41 @@ def cassandra_operations():
         print("Fail to connect keyspace !")
 
 
+# Droping Tables
+    try:
+        session.execute(q_drop_table_1)
+        print("q_table_1 dropped !")
+    except Exception as e:
+        print(e)
+        print("Fail to drop q_table_1 !")
+
+
+
+# Creating Tables
+    try:
+        session.execute(q_create_table_1)
+        print("q1_table created !")
+    except Exception as e:
+        print(e)
+        print("Fail to create q1_table !")
 
 
 
 
+
+
+
+
+    # We have provided part of the code to set up the CSV file. Please complete the Apache Cassandra code       below#
+    file = 'event_datafile_new.csv'
+
+    with open(file, encoding = 'utf8') as f:
+        csvreader = csv.reader(f)
+        next(csvreader) # skip header
+        for line in csvreader:
+    ## TO-DO: Assign the INSERT statements into the `query` variable
+            query = q1_table_insert
+            # query = query + "<ASSIGN VALUES HERE>"
+            ## TO-DO: Assign which column element should be assigned for each column in the INSERT statement.
+            ## For e.g., to INSERT artist_name and user first_name, you would change the code below to `line[0], line[1]
+            session.execute(query, (line[0],line[9],line[5],line[3],line[8]))

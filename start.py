@@ -8,3 +8,5 @@ etl.data_denormalization()
 
 # second part which is about all cassandra operations
 etl.cassandra_operations()
+
+# etl.cassandra_close():
