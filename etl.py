@@ -12,7 +12,7 @@ from cassandra_queries import *
 
 def data_denormalization():
     '''
-    data_denormalization() funcion get data from /event_data path and denormalize it with using csv operation and creating new file called "event_datafile_new.csv". then you can pass to cassandra operations
+    data_denormalization() funcion get data from /event_data path and denormalize it with using csv operation and creating new file called "event_datafile_new.csv". then continue with  all database operations  
 
     No Parameters
     No Return value
@@ -151,7 +151,7 @@ def cassandra_operations():
 
 
     try:
-        session.execute(q2_create_table)
+        session.execute(q3_create_table)
         print("q3_table created !")
     except Exception as e:
         print(e)
@@ -196,6 +196,7 @@ def cassandra_operations():
             csvreader = csv.reader(f)
             next(csvreader) # skip header
             for line in csvreader:
+                query=""
                 query = q3_table_insert
                 session.execute(query, (line[9],int(line[10]),line[1],line[4]))
             print("table 3 data extraction completed")
@@ -203,4 +204,56 @@ def cassandra_operations():
         print(e) 
 
 
+# Select queries for each question
 
+# Query 1:  Give me the artist, song title and song's length in the music app history that was heard during \
+## sessionId = 338, and itemInSession = 4
+
+    
+    try:
+        query = q1_select
+        rows = session.execute(query)
+    except Exception as e:
+        print(e)
+    
+    for row in rows:
+        print ('Question 1 - Query Result :  ',row.artist, row.song,row.length)
+
+
+
+# Query 2 - Give me only the following: name of artist, song (sorted by itemInSession) and user (first and last name)\
+## for userid = 10, sessionid = 182
+
+    
+    try:
+        query = q2_select
+        rows = session.execute(query)
+    except Exception as e:
+        print(e)
+    
+    for row in rows:
+        print ('Question 2 - Query Result :  ',row.artist, row.song, row.firstname, row.lastname)
+
+       
+
+# Query 3: Give me every user name (first and last) in my music app history who listened to the song 'All Hands Against His Own'
+
+    
+    try:
+        query = q3_select
+        rows = session.execute(query)
+    except Exception as e:
+        print(e)
+    
+    for row in rows:
+        print ('Question 3 - Query Result :  ',row.firstname, row.lastname)
+
+
+    try:
+        session.shutdown()
+        print('Session Shutdown...')
+        cluster.shutdown()
+        print('closing clusters...')
+    except Exception as e:
+        print(e)
+    

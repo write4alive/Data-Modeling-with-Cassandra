@@ -42,3 +42,7 @@ Implement the logic in section Part I of the notebook template to iterate throug
 Make necessary edits to Part II of the notebook template to include Apache Cassandra CREATE and INSERT statements to load processed records into relevant tables in your data model<br>
 Test by running SELECT statements after running the queries on your database<br>
 
+You can run project with using just start.py and check all results in terminal<br>
+
+
+

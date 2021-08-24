@@ -25,15 +25,15 @@ CREATE TABLE IF NOT EXISTS q3_table (song text, userid int, firstname text, last
 # insert tables
 
 q1_table_insert =("""
-insert into q1_table(sessionid ,iteminsession ,artist  ,song , length ) values(%s,%s,%s,%s,%s)
+insert into q1_table (sessionid, iteminsession, artist, song, length ) values(%s,%s,%s,%s,%s)
 """)
 
-q2_table_insert=(""" 
-insert into q2_table(userid ,sessionid ,iteminsession , artist  ,song , firstname  ,lastname ) values(%s,%s,%s,%s,%s,%s,%s)
+q2_table_insert=("""
+insert into q2_table (userid ,sessionid ,iteminsession , artist, song, firstname, lastname ) values(%s,%s,%s,%s,%s,%s,%s)
 """)
 
-q3_table_insert=(""" 
-insert into q3_table(song , userid, firstname , lastname ) values(%s,%s,%s,%s)
+q3_table_insert=("""
+insert into q3_table (song, userid, firstname, lastname ) values(%s,%s,%s,%s)
 """)
 
 
@@ -64,10 +64,3 @@ q2_drop_table=(""" drop table if exists q2_table
 q3_drop_table=(""" drop table if exists q3_table
 """)
 
-
-
-
-#  List of Tables for bulk create and drop operations
-
-q_tables_create=[q1_create_table,q2_create_table,q3_create_table]
-q_tables_drop=[q1_drop_table,q2_drop_table,q3_drop_table]
