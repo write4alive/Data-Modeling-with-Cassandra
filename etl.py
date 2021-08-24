@@ -111,39 +111,96 @@ def cassandra_operations():
 
 # Droping Tables
     try:
-        session.execute(q_drop_table_1)
-        print("q_table_1 dropped !")
+        session.execute(q1_drop_table)
+        print("q1_table dropped !")
     except Exception as e:
         print(e)
-        print("Fail to drop q_table_1 !")
+        print("Fail to drop q1_table !")
+
+    try:
+        session.execute(q2_drop_table)
+        print("q2_table dropped !")
+    except Exception as e:
+        print(e)
+        print("Fail to drop q2_table !")
+
+    try:
+        session.execute(q3_drop_table)
+        print("q3_table dropped !")
+    except Exception as e:
+        print(e)
+        print("Fail to drop q3_table !")
 
 
 
 # Creating Tables
     try:
-        session.execute(q_create_table_1)
+        session.execute(q1_create_table)
         print("q1_table created !")
     except Exception as e:
         print(e)
         print("Fail to create q1_table !")
 
 
+    try:
+        session.execute(q2_create_table)
+        print("q2_table created !")
+    except Exception as e:
+        print(e)
+        print("Fail to create q2_table !")
+
+
+    try:
+        session.execute(q2_create_table)
+        print("q3_table created !")
+    except Exception as e:
+        print(e)
+        print("Fail to create q3_table !")
 
 
 
 
 
 
-    # We have provided part of the code to set up the CSV file. Please complete the Apache Cassandra code       below#
-    file = 'event_datafile_new.csv'
+    # insert data from Csv file to 3 different tables based on required queries
+    try:
+        file = 'event_datafile_new.csv'
+        with open(file, encoding = 'utf8') as f:
+            csvreader = csv.reader(f)
+            next(csvreader) # skip header
+            for line in csvreader:
+                query = q1_table_insert
+                session.execute(query, (int(line[8]),int(line[3]),line[0],line[9],line[5]))
+            print("table 1 data extraction completed")
+    except Exception as e:
+        print(e)
 
-    with open(file, encoding = 'utf8') as f:
-        csvreader = csv.reader(f)
-        next(csvreader) # skip header
-        for line in csvreader:
-    ## TO-DO: Assign the INSERT statements into the `query` variable
-            query = q1_table_insert
-            # query = query + "<ASSIGN VALUES HERE>"
-            ## TO-DO: Assign which column element should be assigned for each column in the INSERT statement.
-            ## For e.g., to INSERT artist_name and user first_name, you would change the code below to `line[0], line[1]
-            session.execute(query, (line[0],line[9],line[5],line[3],line[8]))
+
+    try:
+        file = 'event_datafile_new.csv'
+        with open(file, encoding = 'utf8') as f:
+            csvreader = csv.reader(f)
+            next(csvreader) # skip header
+            for line in csvreader:
+                query = q2_table_insert
+                session.execute(query, (int(line[10]),int(line[8]),int(line[3]),line[0],line[9],line[1],line[4]))
+            print("table 2 data extraction completed")
+    except Exception as e:
+        print(e)
+                
+
+
+    try:
+        file = 'event_datafile_new.csv'
+        with open(file, encoding = 'utf8') as f:
+            csvreader = csv.reader(f)
+            next(csvreader) # skip header
+            for line in csvreader:
+                query = q3_table_insert
+                session.execute(query, (line[9],int(line[10]),line[1],line[4]))
+            print("table 3 data extraction completed")
+    except Exception as e:
+        print(e) 
+
+
+
