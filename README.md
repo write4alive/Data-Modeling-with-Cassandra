@@ -44,5 +44,6 @@ Test by running SELECT statements after running the queries on your database<br>
 
 You can run project with using just start.py and check all results in terminal<br>
 
+![Result](https://user-images.githubusercontent.com/16669517/130688919-9950dc91-7198-49bf-a0fd-51853f79911f.png)
 
 
