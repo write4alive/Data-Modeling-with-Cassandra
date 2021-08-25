@@ -71,6 +71,7 @@ def data_denormalization():
         # check the number of rows in your csv file
         with open('event_datafile_new.csv', 'r', encoding = 'utf8') as f:
             print('New file contains ',sum(1 for line in f),' of rows')
+            print("------------------------------")
     except Exception as e:
         print(e)
 
@@ -104,6 +105,7 @@ def cassandra_operations():
     try:
         session.set_keyspace('project2')
         print("Connection established to keyspace")
+        print("------------------------------")
     except Exception as e:
         print(e)
         print("Fail to connect keyspace !")
@@ -112,50 +114,53 @@ def cassandra_operations():
 # Droping Tables
     try:
         session.execute(q1_drop_table)
-        print("q1_table dropped !")
+        print("musicapp_sessionid_iteminsession dropped !")
     except Exception as e:
         print(e)
-        print("Fail to drop q1_table !")
+        print("Fail to drop musicapp_sessionid_iteminsession !")
 
     try:
         session.execute(q2_drop_table)
-        print("q2_table dropped !")
+        print("musicapp_userid_sessionid_c_iteminsession dropped !")
     except Exception as e:
         print(e)
-        print("Fail to drop q2_table !")
+        print("Fail to drop musicapp_userid_sessionid_c_iteminsession !")
 
     try:
         session.execute(q3_drop_table)
-        print("q3_table dropped !")
+        print("musicapp_song_userid dropped !")
+        print("------------------------------")
     except Exception as e:
         print(e)
-        print("Fail to drop q3_table !")
+        print("Fail to drop musicapp_song_userid !")
+
 
 
 
 # Creating Tables
     try:
         session.execute(q1_create_table)
-        print("q1_table created !")
+        print("musicapp_sessionid_iteminsession created !")
     except Exception as e:
         print(e)
-        print("Fail to create q1_table !")
+        print("Fail to create musicapp_sessionid_iteminsession !")
 
 
     try:
         session.execute(q2_create_table)
-        print("q2_table created !")
+        print("musicapp_userid_sessionid_c_iteminsession created !")
     except Exception as e:
         print(e)
-        print("Fail to create q2_table !")
+        print("Fail to create musicapp_userid_sessionid_c_iteminsession !")
 
 
     try:
         session.execute(q3_create_table)
-        print("q3_table created !")
+        print("musicapp_song_userid created !")
+        print("------------------------------")
     except Exception as e:
         print(e)
-        print("Fail to create q3_table !")
+        print("Fail to create musicapp_song_userid !")
 
 
 
@@ -170,8 +175,8 @@ def cassandra_operations():
             next(csvreader) # skip header
             for line in csvreader:
                 query = q1_table_insert
-                session.execute(query, (int(line[8]),int(line[3]),line[0],line[9],line[5]))
-            print("table 1 data extraction completed")
+                session.execute(query, (int(line[8]),int(line[3]),line[0],line[9],float(line[5])))
+            print("musicapp_sessionid_iteminsession data extraction completed")
     except Exception as e:
         print(e)
 
@@ -184,7 +189,7 @@ def cassandra_operations():
             for line in csvreader:
                 query = q2_table_insert
                 session.execute(query, (int(line[10]),int(line[8]),int(line[3]),line[0],line[9],line[1],line[4]))
-            print("table 2 data extraction completed")
+            print("musicapp_userid_sessionid_c_iteminsession data extraction completed")
     except Exception as e:
         print(e)
                 
@@ -199,7 +204,8 @@ def cassandra_operations():
                 query=""
                 query = q3_table_insert
                 session.execute(query, (line[9],int(line[10]),line[1],line[4]))
-            print("table 3 data extraction completed")
+            print("musicapp_song_userid data extraction completed")
+            print("------------------------------")
     except Exception as e:
         print(e) 
 
@@ -218,6 +224,7 @@ def cassandra_operations():
     
     for row in rows:
         print ('Question 1 - Query Result :  ',row.artist, row.song,row.length)
+    print("------------------------------")
 
 
 
@@ -233,6 +240,7 @@ def cassandra_operations():
     
     for row in rows:
         print ('Question 2 - Query Result :  ',row.artist, row.song, row.firstname, row.lastname)
+    print("------------------------------")
 
        
 
@@ -247,6 +255,7 @@ def cassandra_operations():
     
     for row in rows:
         print ('Question 3 - Query Result :  ',row.firstname, row.lastname)
+    print("------------------------------")
 
 
     try:
